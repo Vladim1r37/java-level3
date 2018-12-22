@@ -64,8 +64,10 @@ public class ProductsDAOImpl implements ProductsDAO {
     @Override
     public void setPrice(String title, int price) {
         try {
-            PreparedStatement ps = connection.prepareStatement(String.format("UPDATE Products " +
-                    "SET cost = %d WHERE title = '%s'", price, title));
+            PreparedStatement ps = connection.prepareStatement("UPDATE Products " +
+                    "SET cost = ? WHERE title = ?");
+            ps.setInt(1, price);
+            ps.setString(2, title);
             if (ps.executeUpdate() > 0) {
                 System.out.println(String.format("Цена товара %s обновлена", title));
             } else {
@@ -79,8 +81,10 @@ public class ProductsDAOImpl implements ProductsDAO {
     @Override
     public void showProductsWithPrice(int min, int max) {
         try {
-            PreparedStatement ps = connection.prepareStatement(String.format("SELECT title, cost FROM Products " +
-                    "WHERE cost >= %d AND cost <= %d", min, max));
+            PreparedStatement ps = connection.prepareStatement("SELECT title, cost FROM Products " +
+                    "WHERE cost >= ? AND cost <= ?");
+            ps.setInt(1, min);
+            ps.setInt(2, max);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 System.out.println(String.format("%s: %d", resultSet.getString(1), resultSet.getInt(2)));
