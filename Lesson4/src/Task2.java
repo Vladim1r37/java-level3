@@ -2,27 +2,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Task2 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(3);
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("output.txt")))) {
-            Future f1 = service.submit(() -> writeToFile("line printed by thread1", out));
-            Future f2 = service.submit(() -> writeToFile("line printed by thread2", out));
-            Future f3 = service.submit(() -> writeToFile("line printed by thread3", out));
-            while (true) {
-                try {
-                    if (f1.get() == null && f2.get() == null && f3.get() == null) {
-                        break;
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
+            service.submit(() -> writeToFile("line printed by thread1", out));
+            service.submit(() -> writeToFile("line printed by thread2", out));
+            service.submit(() -> writeToFile("line printed by thread3", out));
+            Thread.sleep(1000);
         }
         service.shutdown();
     }
