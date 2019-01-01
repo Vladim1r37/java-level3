@@ -11,9 +11,11 @@ public class Task2 {
             service.submit(() -> writeToFile("line printed by thread1", out));
             service.submit(() -> writeToFile("line printed by thread2", out));
             service.submit(() -> writeToFile("line printed by thread3", out));
-            Thread.sleep(1000);
+            service.shutdown();
+            service.awaitTermination(1, TimeUnit.MINUTES);
+        } finally {
+            service.shutdown();
         }
-        service.shutdown();
     }
 
     private static void writeToFile(String textLine, PrintWriter out) {
