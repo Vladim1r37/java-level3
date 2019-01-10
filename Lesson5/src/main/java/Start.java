@@ -1,5 +1,5 @@
 public class Start extends Stage {
-    private boolean isCrossed;
+    private volatile boolean isCrossed;
 
     public Start() {
         this.description = "ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!";

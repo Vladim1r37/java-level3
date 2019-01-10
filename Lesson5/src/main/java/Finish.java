@@ -1,6 +1,6 @@
 
 public class Finish extends Stage {
-    private boolean isCrossed;
+    private volatile boolean isCrossed;
     private int carsCount;
 
     public Finish(int carsCount) {

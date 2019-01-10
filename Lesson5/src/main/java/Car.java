@@ -2,9 +2,6 @@ import java.util.concurrent.CyclicBarrier;
 
 public class Car implements Runnable{
     private static int CARS_COUNT;
-    static {
-        CARS_COUNT = 0;
-    }
     private Race race;
     private int speed;
     private String name;
