@@ -46,4 +46,28 @@ public class ArrayUtilsTestCase {
         int[] expectedArr = {};
         Assert.assertArrayEquals(expectedArr, arrayUtils.cutArrayByMarker(inputArr));
     }
+
+    @Test
+    public void testCheckArray1() {
+        int[] arr = {};
+        Assert.assertEquals(false, arrayUtils.checkArray(arr));
+    }
+
+    @Test
+    public void testCheckArray2() {
+        int[] arr = {1};
+        Assert.assertEquals(false, arrayUtils.checkArray(arr));
+    }
+
+    @Test
+    public void testCheckArray3() {
+        int[] arr = {4, 4, 4};
+        Assert.assertEquals(false, arrayUtils.checkArray(arr));
+    }
+
+    @Test
+    public void testCheckArray4() {
+        int[] arr = {4, 4, 4, 1};
+        Assert.assertEquals(true, arrayUtils.checkArray(arr));
+    }
 }
