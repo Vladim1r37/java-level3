@@ -1,6 +1,7 @@
 package dz.repo;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StudentsDAOImpl implements StudentsDAO {
@@ -36,8 +37,11 @@ public class StudentsDAOImpl implements StudentsDAO {
     @Override
     public int readScore(String name) {
         try {
-            return connection.createStatement().executeQuery(String.format("SELECT score " +
-                    "FROM students WHERE name = '%s'", name)).getInt(1);
+            ResultSet resultSet = connection.createStatement().executeQuery(String.format("SELECT score " +
+                    "FROM students WHERE name = '%s'", name));
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else return 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return -1;
