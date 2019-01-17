@@ -21,4 +21,27 @@ public class ArrayUtils {
             return newArr;
         }
     }
+
+    public boolean checkArray(int[] arr) {
+        boolean result = false;
+        boolean contains_1 = false;
+        boolean contains_4 = false;
+        for (int i = 0; i < arr.length; i++) {
+            if (!contains_1){
+                if (arr[i] == 1) {
+                    contains_1 = true;
+                }
+            }
+            if (!contains_4){
+                if (arr[i] == 4) {
+                    contains_4 = true;
+                }
+            }
+            if (contains_1 && contains_4) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
 }
